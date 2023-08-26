@@ -1,0 +1,32 @@
+{
+  "../components/Appointment/AppointmentStyle2/AppointmentForm.js -> react-modal-video": {
+    "id": "../components/Appointment/AppointmentStyle2/AppointmentForm.js -> react-modal-video",
+    "files": [
+      "static/chunks/node_modules_react-modal-video_lib_index_js.js"
+    ]
+  },
+  "../components/Common/TestimonialsTwo/TestimonialSlider.js -> react-owl-carousel3": {
+    "id": "../components/Common/TestimonialsTwo/TestimonialSlider.js -> react-owl-carousel3",
+    "files": [
+      "static/chunks/node_modules_react-owl-carousel3_lib_OwlCarousel_js.js"
+    ]
+  },
+  "../components/HomeTwo/HeroSlider/HeroSlider.js -> react-owl-carousel3": {
+    "id": "../components/HomeTwo/HeroSlider/HeroSlider.js -> react-owl-carousel3",
+    "files": [
+      "static/chunks/node_modules_react-owl-carousel3_lib_OwlCarousel_js.js"
+    ]
+  },
+  "../components/Products/ProductSliderStyle2/ProductSlider.js -> react-owl-carousel3": {
+    "id": "../components/Products/ProductSliderStyle2/ProductSlider.js -> react-owl-carousel3",
+    "files": [
+      "static/chunks/node_modules_react-owl-carousel3_lib_OwlCarousel_js.js"
+    ]
+  },
+  "../components/Services/ServiceSliderStyle2/ServiceSlider.js -> react-owl-carousel3": {
+    "id": "../components/Services/ServiceSliderStyle2/ServiceSlider.js -> react-owl-carousel3",
+    "files": [
+      "static/chunks/node_modules_react-owl-carousel3_lib_OwlCarousel_js.js"
+    ]
+  }
+}
