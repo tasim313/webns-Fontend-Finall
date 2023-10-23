@@ -9,11 +9,11 @@ const ContactInfo = () => {
     const [contactData, setContactData] =  React.useState({});
   
     React.useEffect(() => {
-      axios.get(`${API_BASE_URL}core/contact/list/`)
+      axios.get(`${API_BASE_URL}api/contact/`)
         .then(response => {
             
             const data = response.data;
-            const { address, Phone, contact_email } = data[0]
+            const { address, Phone, contact_email } = data
             setContactData({ address, Phone, contact_email });
         })
         .catch(error => {

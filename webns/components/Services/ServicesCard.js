@@ -18,7 +18,7 @@ const ServicesCard = () => {
     
     React.useEffect(() => {
       axios
-        .get(`${API_BASE_URL}core/services/list/`)
+        .get(`${API_BASE_URL}api/service/`)
         .then(response => {
             const data = response.data;
             setServiceCardContent(data);  
@@ -43,17 +43,19 @@ const ServicesCard = () => {
                                 <div className={styles.singleServicesCard}>
                                     <div className={styles.icon}>
                                         <img 
-                                                src={result.image.original} 
+                                                src={result.image[0].url} 
+                                                height={280}
+                                                width={280}
                                                 alt="image" 
                                         />
                                     </div>
                                     <h3>
-                                        <Link href="/service/[uid]" as={`/service/${result.uid}`} passHref legacyBehavior>
+                                        <Link href="/service/[slug]" as={`/service/${result.slug}`} passHref legacyBehavior>
                                             <a>{result.title}</a>
                                         </Link>
                                     </h3>
                                     <p>{result.short_description}</p>
-                                    <Link href="/service/[uid]" as={`/service/${result.uid}`} passHref legacyBehavior>
+                                    <Link href="/service/[slug]" as={`/service/${result.slug}`} passHref legacyBehavior>
                                         <a className={styles.servicesBtn}>
                                             {button[0].viewDetailsLinkText}
                                         </a>

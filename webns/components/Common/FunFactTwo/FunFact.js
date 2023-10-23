@@ -15,11 +15,11 @@ const FunFact = () => {
         
   
     React.useEffect(() => {
-      axios.get(`${API_BASE_URL}core/fun/list/`)
+      axios.get(`${API_BASE_URL}api/about`)
         .then(response => {
             
             const data = response.data;
-            const { years_of_experience, number_of_clients, delivered_products, winning_awards } = data[0]
+            const { years_of_experience, number_of_clients, delivered_products, winning_awards } = data.funContent
             setFunFactContentData({ years_of_experience, number_of_clients, delivered_products, winning_awards });
         })
         .catch(error => {

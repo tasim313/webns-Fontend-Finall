@@ -11,36 +11,23 @@ const ModalVideo = dynamic(() => import('react-modal-video'), {
 
 const WhyChooseUs = () => {
     const [ChooseUsContentData, setChooseUsContentData] =  React.useState({});
+    const [Content, setContent] =  React.useState([]);
     React.useEffect(() => {
-      axios.get(`${API_BASE_URL}core/content/list/`)
+      axios.get(`${API_BASE_URL}api/chooseUs/`)
         .then(response => {
-            
             const data = response.data
-            const title = data.choose_content[0].headline
-            const description = data.choose_content[0].short_description
-            const image = data.choose_content[0].image
+            const title = data.whyChooseUs[0].headline
+            const description = data.whyChooseUs[0].short_description
+            const image = data.whyChooseUs[0].image[0].url
+            const subContent = data.whyChooseUsSubContent
             setChooseUsContentData({ title, description, image });
+            setContent(subContent);
         })
         .catch(error => {
           console.log(error);
         });
     }, []);
     
-
-    const [Content, setContent] =  React.useState([]);
-  
-    React.useEffect(() => {
-      axios
-        .get(`${API_BASE_URL}core/content/sub_content/list/`)
-        .then(response => {
-            const data = response.data;
-            setContent(data);  
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    }, []);
-
     return (
         <>
             <div className={styles.chooseUsArea}>

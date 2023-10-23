@@ -14,23 +14,23 @@ import API_BASE_URL from '@/utils/apiBaseUrl';
 const BlogDetailsContent = () => {
     
     const router = useRouter();
-    const { uid } = router.query;
+    const { id } = router.query;
     const [BlogDetailsCardContent, setBlogDetailsCardContent] =  React.useState([]);
     
     React.useEffect(() => {
-        if (uid) {
+        if (id) {
             axios
-            .get(`${API_BASE_URL}career/news_events/details/${uid}/list/`)
+            .get(`${API_BASE_URL}api/news_events/${id}`)
             .then(response => {
                 const data = response.data;
-                setBlogDetailsCardContent(data[0]);  
+                setBlogDetailsCardContent(data);  
             })
             .catch(error => {
               console.log(error);
             });
         }
         
-    }, [uid]);
+    }, [id]);
     
 
     if (!BlogDetailsCardContent) {
@@ -73,11 +73,13 @@ const BlogDetailsContent = () => {
                             <div className={styles.blogDetailsDesc}>
                                 <div className={styles.articleContent}>
                                     <div className={styles.articleImage}>
-                                        <img 
-                                            src={BlogDetailsCardContent.image} 
-                                            alt="image" 
-                                        />
+                                        {BlogDetailsCardContent.image && BlogDetailsCardContent.image.length > 0 ? (
+                                            <img src={BlogDetailsCardContent.image[0].url} alt="image" />
+                                        ) : (
+                                            <p>No image available</p> 
+                                        )}
                                     </div>
+
                                     <ul className={styles.entryMeta}>
                                         <li>{formattedDate(BlogDetailsCardContent.publish_date)}</li>
                                     </ul>
@@ -86,9 +88,9 @@ const BlogDetailsContent = () => {
                          
                                     <p>{BlogDetailsCardContent.description}</p>
                                     <h2>{BlogDetailsCardContent.summarize_content_title}</h2>
-                                    {BlogDetailsCardContent.summarize_content_image ? <div className={styles.articleImage}>
+                                    {BlogDetailsCardContent.summarize_content_image && BlogDetailsCardContent.summarize_content_image.length > 0 ? <div className={styles.articleImage}>
                                         <img 
-                                            src={BlogDetailsCardContent.summarize_content_image} 
+                                            src={BlogDetailsCardContent.summarize_content_image[0].url} 
                                             alt="image" 
                                         />
                                     </div> : <p></p>}

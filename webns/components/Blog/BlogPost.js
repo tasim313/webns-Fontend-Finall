@@ -17,7 +17,7 @@ const BlogPost = () => {
   
     React.useEffect(() => {
       axios
-        .get(`${API_BASE_URL}core/news_events/list/`)
+        .get(`${API_BASE_URL}api/news_events/`)
         .then(response => {
             const data = response.data;
             setBlogCardContent(data);  
@@ -47,10 +47,10 @@ const BlogPost = () => {
                             <div className="col-lg-4 col-md-6" key={i}>
                                 <div className={styles.singleBlogCard}>
                                     <div className={styles.postImage}>
-                                        <Link href="/news_events/[uid]" as={`/news_events/${result.uid}`} passHref  legacyBehavior>
+                                        <Link href="/news_events/[id]" as={`/news_events/${result._id}`} passHref  legacyBehavior>
                                             <a>
                                                 <img 
-                                                    src={result.image.original} 
+                                                    src={result.image[0].url} 
                                                     alt={button[0].imageAlt} 
                                                 />
                                             </a>
@@ -61,7 +61,7 @@ const BlogPost = () => {
                                             <li>{formattedDate(result.publish_date) }</li>
                                         </ul>
                                         <h3>
-                                            <Link href="/news_events/[uid]" as={`/news_events/${result.uid}`} passHref  legacyBehavior>
+                                            <Link href="/news_events/[id]" as={`/news_events/${result._id}`} passHref  legacyBehavior>
                                                 <a>{result.headline}</a>
                                             </Link>
                                         </h3>

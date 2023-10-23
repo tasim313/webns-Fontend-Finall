@@ -18,7 +18,7 @@ const CaseStudies = () => {
   
     React.useEffect(() => {
       axios
-        .get(`${API_BASE_URL}core/studies/list/`)
+        .get(`${API_BASE_URL}api/blog/`)
         .then(response => {
             const data = response.data;
             setCaseStudiesContent(data);  
@@ -45,7 +45,9 @@ const CaseStudies = () => {
                                             <Link href="/CaseStudiesDetails/[uid]" as={`/CaseStudiesDetails/${result.uid}`} passHref legacyBehavior>
                                                 <a>
                                                     <img 
-                                                        src={result.image.original} 
+                                                        src={result.image[0].url}
+                                                        height={280}
+                                                        width={280} 
                                                         alt={button[0].imageAlt} 
                                                     />
                                                 </a>

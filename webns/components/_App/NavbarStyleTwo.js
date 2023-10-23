@@ -20,14 +20,28 @@ const NavbarStyleTwo = () => {
         window.scrollTo(0, 0); 
     }) 
 
+    const [contactData, setContactData] =  React.useState({});
+  
+    React.useEffect(() => {
+      axios.get(`${API_BASE_URL}api/contact/`)
+        .then(response => {
+            const data = response.data;
+            const { address, Phone, contact_email } = data
+            setContactData({ address, Phone, contact_email });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }, []);
+
     const [LogoData, setLogoData] =  React.useState({});
   
     React.useEffect(() => {
-      axios.get(`${API_BASE_URL}core/logo/list/`)
+      axios.get(`${API_BASE_URL}api/logo/`)
         .then(response => {
-            const data = response.data[0]
-            let { image } = data
-            setLogoData({image});
+            const data = response.data
+            const imgUrl = data.image[0].url
+            setLogoData({imgUrl});
         })
         .catch(error => {
           console.log(error);
@@ -52,9 +66,9 @@ const NavbarStyleTwo = () => {
                             <Link href="/" legacyBehavior>
                                 <a className="navbar-brand">
                                     <img
-                                        src={LogoData.image}
-                                        height={380}
-                                        width={380}
+                                        src={LogoData.imgUrl}
+                                        height={280}
+                                        width={280}
                                         alt="Site Logo"
                                     />
                                 </a>
@@ -96,11 +110,7 @@ const NavbarStyleTwo = () => {
                                                     <a onClick={toggleNavbar}>About</a>
                                                 </Link>
                                             </li>
-                                            <li>
-                                                <Link href="/pricing" activeClassName="active" legacyBehavior>
-                                                    <a onClick={toggleNavbar}>Pricing</a>
-                                                </Link>
-                                            </li>
+                                            
                                             <li>
                                                 <Link href="/team" activeClassName="active" legacyBehavior>
                                                     <a onClick={toggleNavbar}>Team</a>
@@ -154,21 +164,7 @@ const NavbarStyleTwo = () => {
                                                             <a onClick={toggleNavbar} className="nav-link">Sign In</a>
                                                         </Link>
                                                     </li> 
-                                                    {/* <li className="nav-item">
-                                                        <Link href="/sign-up" activeClassName="active" legacyBehavior>
-                                                            <a onClick={toggleNavbar} className="nav-link">Sign Up</a>
-                                                        </Link>
-                                                    </li>  */}
-                                                    {/* <li className="nav-item">
-                                                        <Link href="/forgot-password" activeClassName="active" legacyBehavior>
-                                                            <a onClick={toggleNavbar} className="nav-link">Forgot Password</a>
-                                                        </Link>
-                                                    </li>  */}
-                                                    {/* <li className="nav-item">
-                                                        <Link href="http://localhost:3001/" activeClassName="active" legacyBehavior>
-                                                            <a onClick={toggleNavbar} className="nav-link">Dashboard</a>
-                                                        </Link>
-                                                    </li>  */}
+                                                    
                                                 </ul>
                                             </li>
                                             <li>
@@ -234,7 +230,7 @@ const NavbarStyleTwo = () => {
                                 </div>
                                 <div className="option-item">
                                     <a href="tel:15143125678" className="default-btn">
-                                        +8801988-000800
+                                    {contactData.Phone}
                                     </a>
                                 </div>
                             </div>

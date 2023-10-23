@@ -13,22 +13,21 @@ const PricingTable = ({ slug }) => {
     React.useEffect(() => {
         if (slug) {
             axios
-            .get(`${API_BASE_URL}core/price/list/${slug}/`)
+            .get(`${API_BASE_URL}api/product/price/${slug}/`)
             .then(response => {
                 const data = response.data;
-                const {basic, standard, premium} = data
-                const basic_plan_name = basic[0].name
-                const basic_plan_price = basic[0].price
-                const basic_plan_description = basic[0].product_provided_service_plan
-                const basic_plan_description_not_provided = basic[0].product_not_provided_service_plan
-                const standard_name = standard[0].name
-                const standard_price = standard[0].price
-                const standard_description = standard[0].product_provided_service_plan
-                const standard_description_not_provided = standard[0].product_not_provided_service_plan
-                const premium_name = premium[0].name
-                const premium_price = premium[0].price
-                const premium_description = premium[0].product_provided_service_plan
-                const premium_description_not_provided = premium[0].product_not_provided_service_plan
+                const basic_plan_name = data.findBasicPrice.basicName
+                const basic_plan_price = data.findBasicPrice.basicPrice
+                const basic_plan_description = data.findBasicPrice.basicProduct_provided_service_plan
+                const basic_plan_description_not_provided = data.findBasicPrice.basicProduct_not_provided_service_plan
+                const standard_name = data.findStandardPrice.standardName
+                const standard_price = data.findStandardPrice.standardPrice
+                const standard_description = data.findStandardPrice.standardProduct_provided_service_plan
+                const standard_description_not_provided = data.findStandardPrice.standardProduct_not_provided_service_plan
+                const premium_name = data.findPremiumPrice.premiumName
+                const premium_price = data.findPremiumPrice.premiumPrice
+                const premium_description = data.findPremiumPrice.premiumProduct_provided_service_plan
+                const premium_description_not_provided = data.findPremiumPrice.premiumProduct_not_provided_service_plan
                 setPriceContent({
                     basic_plan_name,
                     basic_plan_price,
@@ -41,11 +40,11 @@ const PricingTable = ({ slug }) => {
                     premium_name,
                     premium_price,
                     premium_description,
-                    premium_description_not_provided,
+                    premium_description_not_provided
                  });  
             })
             .catch(error => {
-              console.log("product");
+              console.log();
             });
         }
         
@@ -82,7 +81,7 @@ const PricingTable = ({ slug }) => {
                         <div className="col-lg-4 col-md-6">
                             <div className={styles.singlePricingTable}>
                                 <div className={styles.pricingHeader}>
-                                    {PriceContent.basic_plan_name ? <h3>{PriceContent.basic_plan_name}</h3> : <p></p>}
+                                    {PriceContent.basic_plan_name ? <h4>{PriceContent.basic_plan_name}</h4> : <p></p>}
                                 </div>
                                 
                                 {PriceContent.basic_plan_price ? <div className={styles.price}>
@@ -114,7 +113,7 @@ const PricingTable = ({ slug }) => {
                         <div className="col-lg-4 col-md-6">
                             <div className={styles.singlePricingTable}>
                                 <div className={styles.pricingHeader}>
-                                    <h3>{PriceContent.standard_name ? <h3>{PriceContent.standard_name}</h3> : <p></p>}</h3>
+                                    {PriceContent.standard_name ? <h4>{PriceContent.standard_name}</h4> : <p></p>}
                                 </div>
 
                                 {PriceContent.standard_price ? <div className={styles.price}>
@@ -146,22 +145,25 @@ const PricingTable = ({ slug }) => {
                         <div className="col-lg-4 col-md-6">
                             <div className={styles.singlePricingTable}>
                                 <div className={styles.pricingHeader}>
-                                    <h3>{PriceContent.premium_name ? <h3>{PriceContent.premium_name}</h3> : <p></p>}</h3>
+                                    {PriceContent.premium_name ? <h4>{PriceContent.premium_name}</h4> :  <p></p>}
                                 </div>
 
                                 {PriceContent.premium_price ? <div className={styles.price}>
-                                ৳ {PriceContent.premium_price} <span>/monthly</span>
+                                ৳{PriceContent.premium_price}<span>/monthly</span>
                                
                                 </div> : <p></p>}
 
                                 <ul className={styles.featuresList}>
-                                    <li><i className="ri-check-line"></i> 5 Project</li>
-                                    <li><i className="ri-check-line"></i> Multi-language content</li>
-                                    <li><i className="ri-check-line"></i> Quality & customer experience</li>
-                                    <li><i className="ri-check-line"></i> 24/7 email support</li>
-                                    <li><i className="ri-check-line"></i> Extra features</li>
-                                    <li><i className="ri-check-line"></i> Upgrate options</li>
-                                    <li><i className="ri-check-line"></i> Full access</li>
+                                    {PriceContent.premium_description &&
+                                            PriceContent.premium_description.split('.').map((feature, index) => (
+                                                <li  key={index}><i className="ri-check-line"></i> {feature.trim()}</li>
+                                    ))}
+
+                                    {PriceContent.premium_description_not_provided &&
+                                            PriceContent.premium_description_not_provided.split('.').map((feature, index) => (
+                                                <li  key={index}><i className="ri-close-line"></i> {feature.trim()}</li>
+                                    ))}
+                                   
                                 </ul>
 
                                 <div className={styles.pricingBtn}>

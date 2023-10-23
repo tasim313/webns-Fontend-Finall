@@ -30,7 +30,7 @@ const CareerContent = () => {
     
     React.useEffect(() => {
       axios
-        .get(`${API_BASE_URL}career/job/list/`)
+        .get(`${API_BASE_URL}api/career/`)
         .then(response => {
             const data = response.data;
             setCareerInfoContent(data);  
@@ -62,7 +62,7 @@ const CareerContent = () => {
                                             </div>
                                             <div className="col-lg-5 col-sm-6">
                                                 <div className={styles.careerBtn}>
-                                                    <Link href="/career/[uid]" as={`/career/${result.uid}`} passHref  legacyBehavior>
+                                                    <Link href="/career/[uid]" as={`/career/${result._id}`} passHref  legacyBehavior>
                                                         <a className="default-btn">{button[0].viewDetailsText}</a>
                                                     </Link>
                                                     <p><span>{button[0].deadline}</span> {formattedDate(result.deadline)}</p>

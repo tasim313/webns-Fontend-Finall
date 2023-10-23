@@ -18,7 +18,7 @@ const ProductsCard = () => {
   
     React.useEffect(() => {
       axios
-        .get(`${API_BASE_URL}core/product/list/`)
+        .get(`${API_BASE_URL}api/product/`)
         .then(response => {
             const data = response.data;
             setProductCardContent(data);  
@@ -44,7 +44,9 @@ const ProductsCard = () => {
                                 <div className={styles.singleServicesCard}>
                                     <div className={styles.icon}>
                                     <img 
-                                        src={result.image.original} 
+                                        src={result.image[0].url} 
+                                        height={280}
+                                        width={280}
                                         alt="image" 
                                     />
                                     </div>

@@ -18,7 +18,7 @@ const alertContent = () => {
       title: 'Congratulations!',
       text: 'Your appointment was successfully create and will back to you soon',
       icon: 'success',
-      timer: 1000,
+      timer: 4000,
       timerProgressBar: true,
       showConfirmButton: false,
   })
@@ -31,7 +31,7 @@ const alertErrorContent = () => {
       title: 'ooops!',
       text: 'Your appointment was not sent. please try again',
       icon: 'error',
-      timer: 2000,
+      timer: 4000,
       timerProgressBar: true,
       showConfirmButton: false,
   })
@@ -44,10 +44,10 @@ const AppointmentForm = () => {
 
     React.useEffect(() => {
         axios
-          .get(`${API_BASE_URL}career/video/list/`)
+          .get(`${API_BASE_URL}api/video/`)
           .then(response => {
               const data = response.data;
-              setVideoContent(data[0]);  
+              setVideoContent(data);  
           })
           .catch(error => {
             console.log(error);
@@ -66,7 +66,7 @@ const AppointmentForm = () => {
 
     React.useEffect(() => {
         axios
-          .get(`${API_BASE_URL}core/services/info/`)
+          .get(`${API_BASE_URL}api/service/`)
           .then(response => {
               const data = response.data;
               setServiceInfoContent(data);  
@@ -84,8 +84,8 @@ const AppointmentForm = () => {
         phone_number: '',
         appointment_date: '',
         message: '',
-        service: " ",
       });
+      
 
       const [errorMessages, setErrorMessages] = React.useState({
         name: "",
@@ -93,7 +93,7 @@ const AppointmentForm = () => {
         phone_number: '',
         appointment_date: '',
         message: '',
-        service: " ",
+        
       });
 
 
@@ -138,7 +138,6 @@ const AppointmentForm = () => {
   };
   
 
-
   const isFormValid = validateFormData();
      
       const handleChange = (e) => {
@@ -166,7 +165,7 @@ const AppointmentForm = () => {
           return;
         }
         try {
-          const response = await axios.post(`${API_BASE_URL}core/appointment/create/`, formData, {
+          const response = await axios.post(`${API_BASE_URL}api/appointment/`, formData, {
             headers: {
               'Content-Type': 'application/json',
             },
@@ -201,7 +200,7 @@ const AppointmentForm = () => {
             <ModalVideo 
                 channel='youtube' 
                 isOpen={!isOpen} 
-                videoId={VideoContent.videoId} 
+                videoId={VideoContent.video} 
                 onClose={() => setIsOpen(!isOpen)} 
             />
            
@@ -266,18 +265,24 @@ const AppointmentForm = () => {
                                     </div>
                                     
                                     <div className={styles.formGroup}>
-                                        <div className={styles.formSelect}>
-                                            <select className="form-select" aria-label="Default select example"
-                                                name="uid"
-                                                value={formData.uid}
-                                                onChange={handleChange}>
-                                                <option>Select service</option>
-                                                {ServiceInfoContent.map((result, i) => (
-                                                    <option value={result.uid} key={i}>{result.title}</option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                    </div>
+                                                  <div className={styles.formSelect}>
+                                                    <select
+                                                      className="form-select"
+                                                      aria-label="Default select example"
+                                                      name="service"
+                                                      value={formData.service}
+                                                      onChange={handleChange}
+                                                    >
+                                                      <option>Select service</option>
+                                                      {ServiceInfoContent.map((result, i) => (
+                                                        <option value={result._id} key={i}>
+                                                          {result.title}
+                                                        </option>
+                                                      ))}
+                                                    </select>
+                                                  </div>
+                                     </div>
+
                                     <div className={styles.formGroup}>
                                         <textarea 
                                             name="message" 

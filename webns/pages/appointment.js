@@ -1,7 +1,8 @@
 import React from 'react';
 import NavbarStyleTwo from '@/components/_App/NavbarStyleTwo';
 import PageBanner from '@/components/Common/PageBanner/PageBanner';
-import HowCanWeHelp from '@/components/Common/HowCanWeHelp2/HowCanWeHelp';
+// import HowCanWeHelp from '@/components/Common/HowCanWeHelp2/HowCanWeHelp';
+import WhyChooseUs from '@/components/About/WhyChooseUs/WhyChooseUs';
 import AppointmentForm from '@/components/Appointment/AppointmentStyle2/AppointmentForm';
 import TestimonialSlider from '@/components/Common/TestimonialsTwo/TestimonialSlider';
 import NewsletterForm from '@/components/Common/NewsletterForm/NewsletterForm';
@@ -21,7 +22,8 @@ const Appointment = () => {
             />
 
             <div className="ptb-100">
-                <HowCanWeHelp />
+                {/* <HowCanWeHelp /> */}
+                <WhyChooseUs />
             </div>
             
 

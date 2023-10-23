@@ -18,10 +18,10 @@ const CareerDetailsContent = () => {
     React.useEffect(() => {
         if (uid) {
             axios
-            .get(`${API_BASE_URL}career/job/details/${uid}/list/`)
+            .get(`${API_BASE_URL}api/career/${uid}/`)
             .then(response => {
                 const data = response.data;
-                setCareerDetailsCardContent(data[0]);  
+                setCareerDetailsCardContent(data);  
             })
             .catch(error => {
               console.log(error);
