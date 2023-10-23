@@ -18,7 +18,7 @@ const CaseStudiesCard = () => {
   
     React.useEffect(() => {
       axios
-        .get(`${API_BASE_URL}core/studies/list/`)
+        .get(`${API_BASE_URL}api/blog/`)
         .then(response => {
             const data = response.data;
             setCaseStudiesContent(data);  
@@ -45,7 +45,9 @@ const CaseStudiesCard = () => {
                                         <div className="col-xl-6 col-lg-12 col-md-6">
                                             <div className={styles.caseImage}>
                                                 <img 
-                                                    src={result.image.original} 
+                                                    src={result.image[0].url}
+                                                    height={280}
+                                                    width={280} 
                                                     alt={button[0].imageAlt} 
                                                 />
                                             </div>
@@ -54,11 +56,11 @@ const CaseStudiesCard = () => {
                                             <div className={styles.caseContent}>
                                                 <span>{result.subtitle}</span>
                                                 <h3>
-                                                    <Link href="/blogs/[uid]" as={`/blogs/${result.uid}`} passHref legacyBehavior>
+                                                    <Link href="/blogs/[slug]" as={`/blogs/${result.slug}`} passHref legacyBehavior>
                                                         <a>{result.title}</a>
                                                     </Link>
                                                 </h3>
-                                                <Link href="/blogs/[uid]" as={`/blogs/${result.uid}`} passHref legacyBehavior>
+                                                <Link href="/blogs/[slug]" as={`/blogs/${result.slug}`} passHref legacyBehavior>
                                                     <a className={styles.caseBtn}>
                                                         {button[0].learnMoreText}
                                                     </a>

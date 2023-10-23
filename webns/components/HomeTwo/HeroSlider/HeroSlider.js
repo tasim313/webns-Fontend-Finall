@@ -61,7 +61,7 @@ const HeroSlider = () => {
   
     React.useEffect(() => {
       axios
-        .get(`${API_BASE_URL}core/slider-content/list/`)
+        .get(`${API_BASE_URL}api/slider`)
         .then(response => {
             const data = response.data;
             setSliderContent(data);  
@@ -88,12 +88,12 @@ const HeroSlider = () => {
                             <div 
                                 className={`${styles.heroSlidesItem} ${styles.bgImg1}`} key={i} 
                                 style={{ 
-                                    backgroundImage: `url(${result.image.original})` 
+                                    backgroundImage: `url(${result.image[0].url})` 
                                 }}
                             >
                                 <div className={styles.heroSlidesContent}>
-                                    <span>{result.home_content.title}</span>
-                                    <h1>{result.home_content.description}</h1>
+                                    <span>{result.title}</span>
+                                    <h1>{result.description}</h1>
                                     <ul className={styles.slidesBtn}>
                                         <li>
                                             <Link href={button[0].contactBtnLink} legacyBehavior>

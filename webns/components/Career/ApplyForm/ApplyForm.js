@@ -13,7 +13,7 @@ const alertContent = () => {
       title: 'Congratulations!',
       text: 'Your application was successfully send and will back to you soon',
       icon: 'success',
-      timer: 2000,
+      timer: 6000,
       timerProgressBar: true,
       showConfirmButton: false,
   })
@@ -25,7 +25,7 @@ const alertErrorContent = () => {
       title: 'ooops!',
       text: 'Your application was not sent. please try again',
       icon: 'error',
-      timer: 2000,
+      timer: 6000,
       timerProgressBar: true,
       showConfirmButton: false,
   })
@@ -38,7 +38,7 @@ const ApplyForm = () => {
 
     React.useEffect(() => {
         axios
-          .get(`${API_BASE_URL}career/job/list/`)
+          .get(`${API_BASE_URL}api/career/`)
           .then(response => {
               const data = response.data;
               setCareerInfoContent(data);  
@@ -49,7 +49,7 @@ const ApplyForm = () => {
       }, []);
 
     const [formData, setFormData] =  React.useState({
-        uid: "",
+        job_category: "",
         name: '',
         email: '',
         phone_number: '',
@@ -67,12 +67,12 @@ const ApplyForm = () => {
         portfolio_link: '',
         linkedin_link: '',
         comment: '',
-        uid: '',
+        job_category: '',
       });
 
 
   const validateFormData = () => {
-    const { name, email, phone_number, curriculum_vitae, portfolio_link, linkedin_link, comment, uid} = formData;
+    const { name, email, phone_number, curriculum_vitae, portfolio_link, linkedin_link, comment, job_category} = formData;
     
     let hasError = false;
     const errorMessagesData = {};
@@ -111,8 +111,8 @@ const ApplyForm = () => {
       errorMessagesData.comment= 'Please write something about yourself.';
       hasError = true;
     }
-    if (!uid) {
-      errorMessagesData.uid= 'Please Select which Position you apply' ;
+    if (!job_category) {
+      errorMessagesData.job_category= 'Please Select which Position you apply' ;
       hasError = true;
     }
     }
@@ -149,13 +149,13 @@ const ApplyForm = () => {
           return;
         }
         try {
-          const response = await axios.post(`${API_BASE_URL}career/candidate/`, formData, {
+          const response = await axios.post(`${API_BASE_URL}api/candidate/`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
           });
           setFormData({
-            uid: '',
+            job_category: '',
             name: '',
             email: '',
             phone_number: '',
@@ -172,9 +172,10 @@ const ApplyForm = () => {
             portfolio_link: '',
             linkedin_link: '',
             comment: '',
-            uid: '',
+            job_category: '',
           });
           alertContent();
+          window.location.reload();
         } catch (error) {
             alertErrorContent();
             window.location.reload();    
@@ -246,13 +247,13 @@ const ApplyForm = () => {
                        
                     </div>
                     <div className={styles.formGroup}>
-                        <select className={`${"form-select"} ${errorMessages.uid ? styles.emptyField : ''}`}
-                                 name="uid"
-                                 value={formData.uid}
+                        <select className={`${"form-select"} ${errorMessages.job_category ? styles.emptyField : ''}`}
+                                 name="job_category"
+                                 value={formData.job_category}
                                 onChange={handleChange}>
                             <option>Job Category</option>
                             {CareerInfoContent.map((result, i) => (
-                                 <option value={result.uid} key={i}>{result.designation}</option>
+                                 <option value={result._id} key={i}>{result.designation}</option>
                                ))}
                         </select>
                         

@@ -9,7 +9,7 @@ const PrivacyPolicyContent = () => {
 
     React.useEffect(() => {
         axios
-          .get(`${API_BASE_URL}core/police/list/`)
+          .get(`${API_BASE_URL}api/privacyPolicy`)
           .then(response => {
               const data = response.data;
               setPrivacyPolicyData(data);  

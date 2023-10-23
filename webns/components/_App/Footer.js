@@ -8,11 +8,10 @@ const Footer = () => {
     const [contactData, setContactData] =  React.useState({});
   
     React.useEffect(() => {
-      axios.get(`${API_BASE_URL}core/contact/list/`)
+      axios.get(`${API_BASE_URL}api/contact/`)
         .then(response => {
-            
             const data = response.data;
-            const { address, Phone, contact_email } = data[0]
+            const { address, Phone, contact_email } = data
             setContactData({ address, Phone, contact_email });
         })
         .catch(error => {
@@ -23,10 +22,10 @@ const Footer = () => {
     const [LogoData, setLogoData] =  React.useState({});
   
     React.useEffect(() => {
-      axios.get(`${API_BASE_URL}core/logo/list/`)
+      axios.get(`${API_BASE_URL}api/logo/`)
         .then(response => {
-            const data = response.data[0]
-            let { image } = data
+            const data = response.data
+            const image = data.image[0].url
             setLogoData({image});
         })
         .catch(error => {
@@ -42,15 +41,22 @@ const Footer = () => {
                     <div className="row">
                         <div className="col-lg-3 col-sm-6">
                             <div className="single-footer-widget">
-                                <div className="footer-widget-logo">
+                                {/* <div className="footer-widget-logo">
                                 <div className="sticky top-0 z-10 mb-6 flex items-center justify-center bg-white pb-6">
                                     <Link href="/">
                                         
-                                    <img src={LogoData.image}  alt="image" />
+                                    <img src={LogoData.image}
+                                        // style={{
+                                        //     maxWidth: '100%', 
+                                        //     height: 'auto',   
+                                        // }} 
+                                        height={280}
+                                        width={280}
+                                        alt="image" />
                                 
                                     </Link>
                                 </div>
-                                </div>
+                                </div> */}
                                 
                                 <ul className="footer-widget-social">
                                     <li><span>Follow us:</span></li>

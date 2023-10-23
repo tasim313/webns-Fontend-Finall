@@ -9,7 +9,7 @@ const TermsOfServiceContent = () => {
 
     React.useEffect(() => {
         axios
-          .get(`${API_BASE_URL}core/terms/list/`)
+          .get(`${API_BASE_URL}api/termsOfService`)
           .then(response => {
               const data = response.data;
               setTermsOfServiceData(data);  

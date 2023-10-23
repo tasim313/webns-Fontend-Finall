@@ -11,11 +11,10 @@ const AboutCompany = () => {
     const [AboutContentData, setAboutContentData] =  React.useState({});
   
     React.useEffect(() => {
-      axios.get(`${API_BASE_URL}core/about/list/`)
+      axios.get(`${API_BASE_URL}api/about`)
         .then(response => {
-            
             const data = response.data
-            const { title, short_description, support_description,years_of_experience,vision,mission,start_year} = data[0]
+            const { title, short_description, support_description,years_of_experience,vision,mission} = data.about
             let short_description_new_value = short_description.slice(0, 280)
             setAboutContentData({ title, short_description_new_value, support_description,years_of_experience,vision,mission });
         })
@@ -28,16 +27,11 @@ const AboutCompany = () => {
     const [contactData, setContactData] =  React.useState({});
   
     React.useEffect(() => {
-      axios.get(`${API_BASE_URL}core/contact/list/`)
+      axios.get(`${API_BASE_URL}api/contact/`)
         .then(response => {
             const data = response.data;
-            if (data && data.length > 0) {
-            const {  Phone } = data[0] 
-            setContactData({  Phone });
-        } else {
-            console.log("No contact data available");
-            setContactData({});
-          }
+            const  Phone  = data.Phone 
+            setContactData({Phone})
         })
         .catch(error => {
           console.log(error);

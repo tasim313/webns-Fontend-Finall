@@ -16,10 +16,9 @@ const TeamMember = () => {
   
     React.useEffect(() => {
       axios
-        .get(`${API_BASE_URL}core/teams/list/`)
+        .get(`${API_BASE_URL}api/team/`)
         .then(response => {
             const data = response.data;
-            console.log("Data", data)
             setTeamCardContent(data);  
         })
         .catch(error => {
@@ -42,7 +41,7 @@ const TeamMember = () => {
                                 <div className={styles.singleTeamCard}>
                                     <div className={styles.teamImage}>
                                         <img 
-                                            src={result.image.original} 
+                                            src={result.image[0].url} 
                                             alt={button[0].imageAlt} 
                                         />
                                     </div>

@@ -7,16 +7,17 @@ import API_BASE_URL from '@/utils/apiBaseUrl';
 const AboutContent = () => {
     
     const [AboutContentData, setAboutContentData] =  React.useState({});
-  
+    const [AboutFileContentData, setAboutFileContentData] =  React.useState({});
+
     React.useEffect(() => {
-      axios.get(`${API_BASE_URL}core/about/file/list/`)
+      axios.get(`${API_BASE_URL}api/about`)
         .then(response => {
-            
-            const data = response.data[0]
+            const data = response.data
             let { title, short_description, support_description,years_of_experience,vision,mission,start_year} = data.about
             let start_year_new_value = start_year.slice(0, 4)
-            let { image } = data
-            setAboutContentData({ title, short_description, support_description,years_of_experience,vision,mission,start_year_new_value,image });
+            const image  = data.aboutFile.image[0].url
+            setAboutContentData({ title, short_description, support_description,years_of_experience,vision,mission,start_year_new_value });
+            setAboutFileContentData({image});
         })
         .catch(error => {
           console.log(error);
@@ -64,7 +65,7 @@ const AboutContent = () => {
                         <div className="col-lg-6 col-md-12">
                             <div className={styles.aboutImage}>
                                 <img 
-                                    src={AboutContentData.image} 
+                                    src={AboutFileContentData.image} 
                                     alt="About Image" 
                                 />
                                 <div className={styles.sinceText}>

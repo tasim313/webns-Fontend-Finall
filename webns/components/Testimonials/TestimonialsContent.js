@@ -20,7 +20,7 @@ const TestimonialsContent = () => {
   
     React.useEffect(() => {
       axios
-        .get(`${API_BASE_URL}core/testimonial/`)
+        .get(`${API_BASE_URL}api/testimonial`)
         .then(response => {
             const data = response.data;
             setTestimonialContent(data);  
@@ -52,7 +52,7 @@ const TestimonialsContent = () => {
                                     <div className={styles.info}>
                                         <div className={styles.img}>
                                             <img 
-                                                src={result.image.original} 
+                                                src={result.image[0].url} 
                                                 alt={button[0].imageAlt} 
                                             />
                                         </div>

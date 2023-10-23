@@ -12,23 +12,23 @@ import API_BASE_URL from '@/utils/apiBaseUrl';
 const ServicesDetailsContent = () => {
     
     const router = useRouter();
-    const { uid } = router.query;
+    const { slug } = router.query;
     const [ServicesDetailsCardContent, setServicesDetailsCardContent] =  React.useState([]);
     
     React.useEffect(() => {
-        if (uid) {
+        if (slug) {
             axios
-            .get(`${API_BASE_URL}core/services/details/${uid}/list/`)
+            .get(`${API_BASE_URL}api/service/${slug}`)
             .then(response => {
                 const data = response.data;
-                setServicesDetailsCardContent(data[0]);  
+                setServicesDetailsCardContent(data);  
             })
             .catch(error => {
               console.log(error);
             });
         }
         
-    }, [uid]);
+    }, [slug]);
     
 
     if (!ServicesDetailsCardContent) {
@@ -65,9 +65,9 @@ const ServicesDetailsContent = () => {
                                 
                                 <h1>{ServicesDetailsCardContent.title}</h1>
 
-                                {ServicesDetailsCardContent.image ? <div className={styles.img}>
+                                {ServicesDetailsCardContent.image && ServicesDetailsCardContent.image[0]  ? <div className={styles.img}>
                                     <img 
-                                        src={ServicesDetailsCardContent.image} 
+                                        src={ServicesDetailsCardContent.image[0].url} 
                                         alt="image" 
                                     />
                                 </div> : <p></p>}
@@ -75,9 +75,9 @@ const ServicesDetailsContent = () => {
                                 
                                
                                 <p>{ServicesDetailsCardContent.short_description}</p>
-                                {ServicesDetailsCardContent.short_description_image ? <div className={styles.img}>
+                                {ServicesDetailsCardContent.short_description_image && ServicesDetailsCardContent.short_description_image[0] ?  <div className={styles.img}>
                                     <img 
-                                        src={ServicesDetailsCardContent.short_description_image} 
+                                        src={ServicesDetailsCardContent.short_description_image[0].url} 
                                         alt="image" 
                                     />
                                 </div> : <p></p>}

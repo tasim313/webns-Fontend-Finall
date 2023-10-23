@@ -13,7 +13,7 @@ const GalleryContent = () => {
   
     React.useEffect(() => {
       axios
-        .get(`${API_BASE_URL}core/galleries/list/`)
+        .get(`${API_BASE_URL}api/gallery/`)
         .then(response => {
             const data = response.data;
             setGalleryImageContent(data);  
@@ -37,7 +37,7 @@ const GalleryContent = () => {
                                                         onClick={e => {e.preventDefault(); setIsOpenImage(true); setPhotoIndex(0);}}
                                                     >
                                                         <img 
-                                                            src={result.image.original} 
+                                                            src={result.image[0].url} 
                                                             alt="image" 
                                                         />
                                                     </div>

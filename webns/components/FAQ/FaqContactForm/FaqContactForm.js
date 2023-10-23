@@ -11,17 +11,29 @@ const alertContent = () => {
         title: 'Congratulations!',
         text: 'Your message was successfully send and will back to you soon',
         icon: 'success',
-        timer: 2000,
+        timer: 6000,
         timerProgressBar: true,
         showConfirmButton: false,
     })
 }
 
+const alertErrorContent = () => {
+    MySwal.fire({
+        title: 'ooops!',
+        text: 'Your message was not sent. please try again',
+        icon: 'error',
+        timer: 6000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+    })
+}
+
+
 // Form initial state
 const INITIAL_STATE = {
     name: "",
     email: "",
-    phone_number: "",
+    Phone: "",
     subject: "",
     message: ""
 };
@@ -37,14 +49,16 @@ const ContactForm = () => {
     const handleSubmit = async e => {
         e.preventDefault();
         try {
-            const url = `${API_BASE_URL}career/message/`;
-            const { name, email, phone_number, subject, message } = contact;
-            const payload = { name, email, phone_number, subject, message };
+            const url = `${API_BASE_URL}api/message`;
+            const { name, email, Phone, subject, message } = contact;
+            const payload = { name, email, Phone, subject, message };
             const response = await axios.post(url, payload);
             setContact(INITIAL_STATE);
             alertContent();
         } catch (error) {
-            console.log(error)
+            alertErrorContent()
+            window.location.reload();
+            
         }
     };
 
@@ -88,10 +102,10 @@ const ContactForm = () => {
                                 <div className={styles.formGroup}>
                                     <input 
                                         type="text" 
-                                        name="phone_number" 
+                                        name="Phone" 
                                         placeholder="Phone number" 
                                         className={styles.formControl} 
-                                        value={contact.phone_number}
+                                        value={contact.Phone}
                                         onChange={handleChange} 
                                         required 
                                     />

@@ -17,7 +17,7 @@ const OurBlog = () => {
   
     React.useEffect(() => {
       axios
-        .get(`${API_BASE_URL}core/news_events/list/`)
+        .get(`${API_BASE_URL}api/news_events/`)
         .then(response => {
             const data = response.data.slice(0, 6);
             setBlogCardContent(data);  
@@ -50,7 +50,9 @@ const OurBlog = () => {
                                         <Link href="/news_events/[uid]" as={`/news_events/${result.uid}`} passHref  legacyBehavior>
                                             <a>
                                                 <img 
-                                                    src={result.image.original} 
+                                                    src={result.image[0].url}
+                                                    width={280} 
+                                                    height={280}
                                                     alt={button[0].imageAlt} 
                                                 />
                                             </a>

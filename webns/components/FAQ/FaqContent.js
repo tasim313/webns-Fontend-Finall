@@ -12,30 +12,17 @@ import API_BASE_URL from '@/utils/apiBaseUrl';
 const FaqContent = () => {
 
     const [FaqContentData, setFaqContentData] =  React.useState({});
-
-    React.useEffect(() => {
-      axios.get(`${API_BASE_URL}core/faq/list/`)
-        .then(response => {
-            
-            const data = response.data
-            const title = data[0].title
-            const image = data[0].image.original
-            setFaqContentData({ title, image });
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    }, []);
-    
-
     const [Content, setContent] =  React.useState([]);
-  
+
     React.useEffect(() => {
-      axios
-        .get(`${API_BASE_URL}core/faq/sub_content/list/`)
+      axios.get(`${API_BASE_URL}api/faq/`)
         .then(response => {
-            const data = response.data;
-            setContent(data);  
+            const data = response.data
+            const title = data.frequentAskedQuestion.title
+            const image = data.frequentAskedQuestion.image[0].url
+            setFaqContentData({ title, image });
+            const subContent = data.frequentAskedQuestionSubContent
+            setContent(subContent); 
         })
         .catch(error => {
           console.log(error);

@@ -181,7 +181,7 @@ const  PartnerSlider = () => {
   
     React.useEffect(() => {
               axios
-                .get(`${API_BASE_URL}core/client/`)
+                .get(`${API_BASE_URL}api/Client/`)
                 .then(response => {
                     const data = response.data;
                     setClientContent(data);  
@@ -213,7 +213,7 @@ const  PartnerSlider = () => {
                                            
                                                 <a>
                                                     <img 
-                                                        src={result.logo.original} 
+                                                        src={result.image[0].url} 
                                                         height={180}
                                                         width={180}
                                                         alt={button[0].imageAlt} 

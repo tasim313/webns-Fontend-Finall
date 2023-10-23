@@ -15,23 +15,23 @@ import API_BASE_URL from '@/utils/apiBaseUrl';
 const CaseStudiesDetailsContent = () => {
 
     const router = useRouter();
-    const { uid } = router.query;
+    const { slug } = router.query;
     const [CaseStudiesDetailsCardContent, setCaseStudiesDetailsCardContent] =  React.useState([]);
     
     React.useEffect(() => {
-        if (uid) {
+        if (slug) {
             axios
-            .get(`${API_BASE_URL}career/studies/details/${uid}/list/`)
+            .get(`${API_BASE_URL}api/blog/${slug}`)
             .then(response => {
                 const data = response.data;
-                setCaseStudiesDetailsCardContent(data[0]);  
+                setCaseStudiesDetailsCardContent(data);  
             })
             .catch(error => {
               console.log(error);
             });
         }
         
-    }, [uid]);
+    }, [slug]);
     
 
     if (!CaseStudiesDetailsCardContent) {
@@ -69,7 +69,7 @@ const CaseStudiesDetailsContent = () => {
 
                                 {CaseStudiesDetailsCardContent.image ? <div className={styles.img}>
                                     <img 
-                                        src={CaseStudiesDetailsCardContent.image}
+                                        src={CaseStudiesDetailsCardContent.image[0].url}
                                         alt="image" 
                                     />
                                 </div> : <p></p>}
@@ -85,7 +85,7 @@ const CaseStudiesDetailsContent = () => {
                                 
                                 {CaseStudiesDetailsCardContent.challenges_image ? <div className={styles.img}>
                                     <img 
-                                        src={CaseStudiesDetailsCardContent.challenges_image}
+                                        src={CaseStudiesDetailsCardContent.challenges_image[0].url}
                                         alt="image" 
                                     />
                                 </div> : <p></p>}

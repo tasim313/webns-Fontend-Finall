@@ -19,10 +19,10 @@ const ProductsDetailsContent = () => {
     React.useEffect(() => {
         if (slug) {
             axios
-            .get(`${API_BASE_URL}core/product/details/${slug}/list/`)
+            .get(`${API_BASE_URL}api/product/${slug}`)
             .then(response => {
                 const data = response.data;
-                setProductDetailsCardContent(data[0]);  
+                setProductDetailsCardContent(data);  
             })
             .catch(error => {
               console.log(error);
@@ -67,7 +67,7 @@ const ProductsDetailsContent = () => {
                                 <h1>{ProductDetailsCardContent.title}</h1>
                                 {ProductDetailsCardContent.image ? <div className={styles.img}>
                                     <img 
-                                        src={ProductDetailsCardContent.image} 
+                                        src={ProductDetailsCardContent.image[0].url} 
                                         alt="image" 
                                     />
                                 </div> : <p></p>}
@@ -77,7 +77,7 @@ const ProductsDetailsContent = () => {
 
                                 {ProductDetailsCardContent.short_description_image ? <div className={styles.img}>
                                     <img 
-                                        src={ProductDetailsCardContent.short_description_image} 
+                                        src={ProductDetailsCardContent.short_description_image[0].url} 
                                         alt="image" 
                                     />
                                 </div> : <p></p>}
@@ -88,7 +88,7 @@ const ProductsDetailsContent = () => {
 
                                 {ProductDetailsCardContent.long_description_image ? <div className={styles.img}>
                                     <img 
-                                        src={ProductDetailsCardContent.long_description_image} 
+                                        src={ProductDetailsCardContent.long_description_image[0].url} 
                                         alt="image" 
                                     />
                                 </div> : <p></p>}
@@ -98,7 +98,7 @@ const ProductsDetailsContent = () => {
 
                                 {ProductDetailsCardContent.key_Feature_image ? <div className={styles.img}>
                                     <img 
-                                        src={ProductDetailsCardContent.key_Feature_image}
+                                        src={ProductDetailsCardContent.key_Feature_image[0].url}
                                         alt="image" 
                                     />
                                 </div> : <p></p>}
